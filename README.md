@@ -17,3 +17,4 @@ PORT=8080 ROOT=absolute/path/to/your/gemini/directory HTML_TEMPLATE=absolute/pat
 * ROOT: Path of Gemini files (mandatory)
 * HTML_TEMPLATE: Path to .html file used for templating (mandatory)
 * LANG: html language code (default: en)
+* GEMINI_ROOT_URL: The url of your gemini capsule

@@ -60,7 +60,8 @@ app.use(async function (req, res) {
         const htmlOutput = Mustache.render(templateContent, {
             lang: process.env.LANG || 'en',
             title,
-            bodyContent: renderToHTML(tokens)
+            bodyContent: renderToHTML(tokens),
+            url: path.join(process.env.GEMINI_ROOT_URL || '', req.path)
         });
         res.end(htmlOutput);
     } catch (err) {
