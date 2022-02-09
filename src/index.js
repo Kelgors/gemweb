@@ -61,7 +61,7 @@ app.use(async function (req, res) {
             lang: process.env.LANG || 'en',
             title,
             bodyContent: renderToHTML(tokens),
-            url: path.join(process.env.GEMINI_ROOT_URL || '', req.path)
+            url: (process.env.GEMINI_ROOT_URL || '') + req.path
         });
         res.end(htmlOutput);
     } catch (err) {

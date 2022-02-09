@@ -1,4 +1,4 @@
-# gemini-html-server:2-node16-slim
+# gemini-html-server:1-node16-slim
 FROM node:16-bullseye-slim
 ENV NODE_ENV production
 ENV PORT 8080
@@ -7,7 +7,7 @@ ENV HTML_TEMPLATE /usr/local/template.html
 ENV LANG en
 WORKDIR /server
 RUN apt update && apt install -y wget unzip \
-    && wget -q https://github.com/Kelgors/gemini-html-server/archive/refs/heads/main.zip \
+    && wget -q -O main.zip https://github.com/Kelgors/gemini-html-server/archive/refs/heads/main.zip?1 \
     && unzip main.zip && rm main.zip \
     && cd gemini-html-server-main \
     && npm ci
