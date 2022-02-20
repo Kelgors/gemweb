@@ -1,16 +1,21 @@
-const fs = require('fs').promises;
-const path = require('path');
-const mime = require('mime');
-const Mustache = require('mustache');
-const parseGemini = require('gemini-to-html/parse');
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import mime from 'mime';
+import Mustache from 'mustache';
+import { fromGemtext } from 'dioscuri';
+import renderToHTML from './render.js';
+import template from './template.js';
+import triggerError from './triggerError.js';
 
-const renderToHTML = require('./render.js');
-const template = require('./template.js');
-const triggerError = require('./triggerError.js');
+if (!process.env.ROOT) {
+    console.error('Missing ROOT path to gemini files');
+    process.exit(1);
+}
 
 const rootPath = process.env.ROOT;
 
-module.exports = async function resolveFile(req, res) {
+export default async function resolveFile(req, res) {
     console.info('%s %s', req.method, req.url);
     try {
         let filepath = path.join(rootPath, req.url);
@@ -45,17 +50,33 @@ module.exports = async function resolveFile(req, res) {
         }
         // render .gmi
         const fileContent = await fs.readFile(filepath);
-        const tokens = parseGemini(fileContent.toString());
-        const titleToken = tokens.find(({ type, level }) => type === 'header' && level === 1);
-        const title = !!titleToken ? titleToken.content : '';
+        const tree = fromGemtext(fileContent);
+        const titleToken = tree.children.find(({ type, rank }) => type === 'heading' && rank === 1);
+        const title = !!titleToken ? titleToken.value : '';
+
+        const md5Hasher = crypto.createHmac('md5', process.env.GEMINI_ROOT_URL);
+        const etag = md5Hasher.update(fileContent).digest('hex');
+
+        const ifNoneMatchHead = req.headers['if-none-match'];
+        console.info('If-None-Match: %s, ETag: %s, equals?: %s', ifNoneMatchHead, etag, ifNoneMatchHead === etag);
+        if (ifNoneMatchHead && ifNoneMatchHead === etag) {
+            res.writeHead(304, 'Not Modified', {
+                ETag: etag
+            });
+            res.end();
+            return;
+        }
 
         const htmlOutput = Mustache.render(template, {
             lang: process.env.LANG || 'en',
             title,
-            bodyContent: renderToHTML(tokens),
+            bodyContent: renderToHTML(tree),
             url: (process.env.GEMINI_ROOT_URL || '') + req.url
         });
-        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.writeHead(200, '', {
+            'ETag': etag,
+            'Content-Type': 'text/html; charset=utf-8'
+        });
         res.write(htmlOutput);
         res.end();
     } catch (err) {

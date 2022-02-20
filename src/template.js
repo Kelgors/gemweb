@@ -1,4 +1,7 @@
-const templateContent = require('fs').readFileSync(process.env.HTML_TEMPLATE).toString();
-console.log('Parsing template');
-require('mustache').parse(templateContent);
-module.exports = templateContent;
+import fs from 'node:fs';
+import Mustache from 'mustache';
+
+const templateContent = fs.readFileSync(process.env.HTML_TEMPLATE).toString();
+console.info('Parsing template');
+Mustache.parse(templateContent);
+export default templateContent;

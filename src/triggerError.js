@@ -1,4 +1,4 @@
-module.exports = function triggerError(res, code, message) {
+export default function triggerError(res, code, message) {
     console.error('Error %s %s', code, message);
     res.statusCode = code;
     res.statusMessage = message;

@@ -1,15 +1,17 @@
-const http = require('http');
+import http from 'node:http';
 
-if (!process.env.ROOT) {
-    console.error('Missing ROOT path to gemini files');
-    process.exit(1);
-}
 if (!process.env.HTML_TEMPLATE) {
     console.error('Missing HTML_TEMPLATE path to the html template');
     process.exit(1);
 }
 
-const server = http.createServer(require('./resolve-file.js'));
+const { default: resolve } = await import(
+    !!process.env.GEMINI_ROOT_URL && !process.env.ROOT
+    ? './resolve-gemini.js'
+    : './resolve-file.js'
+);
+
+const server = http.createServer(resolve);
 
 server.listen(process.env.PORT || '3000', function () {
     console.info('Server started on port %s', process.env.PORT || '3000');
