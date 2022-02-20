@@ -4,13 +4,10 @@
   <title>{{title}}</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="author" content="Kelgors" />
+  <meta name="author" content="put_author_name_here" />
   <meta name ="title" content="{{title}}" />
   <link rel="icon" type="image/x-icon" href="/pp2022.png">
-  <link href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/dark.min.css" rel="stylesheet" />
   <style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
 body {
   --before-color: #929ba3;
   --h1-color: #e95d4e;
@@ -22,8 +19,8 @@ body {
   padding: 0;
   background-color: #14171a;
   color: #cad1d8;
-  font-family: "Roboto Mono", "Droid Sans Mono", Monaco, Consolas, Courier, monospace;
-  font-size: 1.0625em;
+  font-family: monospace;
+  font-size: 1.3em;
   line-height: 1.5;
   background: #1e1e1e;
 }
@@ -147,10 +144,6 @@ ol {
   white-space: nowrap;
 }
 
-li {
-  margin-left: -0.6em;
-}
-
 li::before {
   white-space: nowrap;
   display: inline-block;
@@ -249,7 +242,5 @@ strong {
     <summary>Content from <a href="{{url}}">{{url}}</a></summary>
     <p><a target="_blank" href="https://gemini.circumlunar.space/">More info</a> about Gemini protocol</p>
   </details>
-  <script async defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
-  <script defer>hljs.highlightAll();</script>
 </body>
 </html>

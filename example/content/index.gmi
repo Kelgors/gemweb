@@ -1,0 +1,10 @@
+# Example gemini capsule
+
+=> articles/article-1.gmi Article 1
+=> about.gmi About
+
+=> 404.gmi Lead to 404
+=> anything/ Lead to 404 too
+=> articles/ Lead to 404 again
+
+> Last-Updated: 2022-02-20
