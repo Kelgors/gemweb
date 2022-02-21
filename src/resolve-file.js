@@ -58,7 +58,6 @@ export default async function resolveFile(req, res) {
         const etag = md5Hasher.update(fileContent).digest('hex');
 
         const ifNoneMatchHead = req.headers['if-none-match'];
-        console.info('If-None-Match: %s, ETag: %s, equals?: %s', ifNoneMatchHead, etag, ifNoneMatchHead === etag);
         if (ifNoneMatchHead && ifNoneMatchHead === etag) {
             res.writeHead(304, 'Not Modified', {
                 ETag: etag
