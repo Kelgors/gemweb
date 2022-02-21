@@ -60,7 +60,7 @@ export default async function resolveFile(req, res) {
         const ifNoneMatchHead = req.headers['if-none-match'];
         if (ifNoneMatchHead && ifNoneMatchHead === etag) {
             res.writeHead(304, 'Not Modified', {
-                ETag: etag
+                ETag: `W/${etag}`,
             });
             res.end();
             return;
@@ -73,7 +73,7 @@ export default async function resolveFile(req, res) {
             url: (process.env.GEMINI_ROOT_URL || '') + req.url
         });
         res.writeHead(200, '', {
-            'ETag': etag,
+            'ETag': `W/${etag}`,
             'Content-Type': 'text/html; charset=utf-8'
         });
         res.write(htmlOutput);
