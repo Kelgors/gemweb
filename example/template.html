@@ -1,246 +1,242 @@
 <!DOCTYPE html>
 <html lang="{{lang}}">
-<head>
-  <title>{{title}}</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="author" content="put_author_name_here" />
-  <meta name ="title" content="{{title}}" />
-  <link rel="icon" type="image/x-icon" href="/pp2022.png">
-  <style>
-body {
-  --before-color: #929ba3;
-  --h1-color: #e95d4e;
-  --h2-color: #33d779;
-  --h3-color: #c061cb;
-  --link-color: #7877da;
-  --visited-color: #54548f;
-  margin: 0;
-  padding: 0;
-  background-color: #14171a;
-  color: #cad1d8;
-  font-family: monospace;
-  font-size: 1.3em;
-  line-height: 1.5;
-  background: #1e1e1e;
-}
+  <head>
+    <title>{{title}}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="put_author_name_here" />
+    <meta name="title" content="{{title}}" />
+    <link rel="icon" type="image/x-icon" href="/pp2022.png" />
+    <style>
+      body {
+        --before-color: #929ba3;
+        --h1-color: #e95d4e;
+        --h2-color: #33d779;
+        --h3-color: #c061cb;
+        --link-color: #7877da;
+        --visited-color: #54548f;
+        margin: 0;
+        padding: 0;
+        background-color: #14171a;
+        color: #cad1d8;
+        font-family: monospace;
+        font-size: 1.3em;
+        line-height: 1.5;
+        background: #1e1e1e;
+      }
 
-main,
-details {
-  max-width: 45em;
-  max-width: 90ch;
-  margin: 0 auto;
-}
+      main,
+      details {
+        max-width: 45em;
+        max-width: 90ch;
+        margin: 0 auto;
+      }
 
-main {
-  margin-top: 4em;
-}
+      main {
+        margin-top: 4em;
+      }
 
-main>p {
-  text-align: justify;
-}
+      main > p {
+        text-align: justify;
+      }
 
-@media screen and (max-width: 1024px) {
+      @media screen and (max-width: 1024px) {
+        main,
+        details {
+          max-width: 30em;
+          max-width: 60ch;
+          font-size: 16px;
+        }
+      }
 
-  main,
-  details {
-    max-width: 30em;
-    max-width: 60ch;
-    font-size: 16px;
-  }
-}
+      @media screen and (max-width: 720px) {
+        main,
+        details {
+          max-width: 20em;
+          max-width: 40ch;
+          font-size: 14px;
+        }
+      }
 
-@media screen and (max-width: 720px) {
+      @media screen and (max-width: 380px) {
+        main,
+        details {
+          max-width: 19em;
+          max-width: 38ch;
+          font-size: 12px;
+        }
+      }
 
-  main,
-  details {
-    max-width: 20em;
-    max-width: 40ch;
-    font-size: 14px;
-  }
-}
+      blockquote {
+        position: relative;
+        margin: 1em 0;
+        font-style: italic;
+      }
 
-@media screen and (max-width: 380px) {
+      blockquote::before {
+        content: '>';
+        position: absolute;
+        left: -1.4em;
+        color: var(--before-color);
+      }
 
-  main,
-  details {
-    max-width: 19em;
-    max-width: 38ch;
-    font-size: 12px;
-  }
-}
+      pre {
+        margin: 0;
+        font: inherit;
+        font-style: normal;
+        font-family: 'Iosevka Term SS03', 'IBM Plex Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Droid Sans Mono',
+          Monaco, Consolas, Courier, monospace;
+        white-space: pre-wrap;
+      }
 
-blockquote {
-  position: relative;
-  margin: 1em 0;
-  font-style: italic;
-}
+      h1,
+      h2,
+      h3 {
+        position: relative;
+        font: inherit;
+        font-weight: bold;
+        color: #fff;
+      }
 
-blockquote::before {
-  content: '>';
-  position: absolute;
-  left: -1.4em;
-  color: var(--before-color);
-}
+      h1 {
+        color: var(--h1-color);
+      }
 
-pre {
-  margin: 0;
-  font: inherit;
-  font-style: normal;
-  font-family: "Iosevka Term SS03", "IBM Plex Mono", "Fira Code", "Fira Mono", "Roboto Mono", "Droid Sans Mono", Monaco, Consolas, Courier, monospace;
-  white-space: pre-wrap;
-}
+      h1::before {
+        content: '#';
+        position: absolute;
+        left: -1.4em;
+        color: var(--before-color);
+        color: var(--h1-color);
+      }
 
-h1,
-h2,
-h3 {
-  position: relative;
-  font: inherit;
-  font-weight: bold;
-  color: #fff;
-}
+      h2 {
+        color: var(--h2-color);
+      }
 
-h1 {
-  color: var(--h1-color);
-}
+      h2::before {
+        content: '##';
+        position: absolute;
+        left: -2em;
+        color: var(--before-color);
+        color: var(--h2-color);
+      }
 
-h1::before {
-  content: '#';
-  position: absolute;
-  left: -1.4em;
-  color: var(--before-color);
-  color: var(--h1-color);
-}
+      h3 {
+        color: var(--h3-color);
+      }
 
-h2 {
-  color: var(--h2-color);
-}
+      h3::before {
+        content: '###';
+        position: absolute;
+        left: -2.6em;
+        color: var(--before-color);
+        color: var(--h3-color);
+      }
 
-h2::before {
-  content: '##';
-  position: absolute;
-  left: -2em;
-  color: var(--before-color);
-  color: var(--h2-color);
-}
+      ul,
+      ol {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        white-space: nowrap;
+      }
 
-h3 {
-  color: var(--h3-color);
-}
+      li::before {
+        white-space: nowrap;
+        display: inline-block;
+        width: 3ch;
+        width: 1.5em;
+        margin-left: -3ch;
+        margin-left: -1.5em;
+        content: '–';
+        color: var(--before-color);
+      }
 
-h3::before {
-  content: '###';
-  position: absolute;
-  left: -2.6em;
-  color: var(--before-color);
-  color: var(--h3-color);
-}
+      a {
+        position: relative;
+      }
 
-ul,
-ol {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-  white-space: nowrap;
-}
+      a::before {
+        content: 'FILE';
+        left: -3.2em;
+      }
 
-li::before {
-  white-space: nowrap;
-  display: inline-block;
-  width: 3ch;
-  width: 1.5em;
-  margin-left: -3ch;
-  margin-left: -1.5em;
-  content: '–';
-  color: var(--before-color);
-}
+      a[href$='.png']::before,
+      a[href$='.jpg']::before {
+        content: 'IMG';
+        left: -2.6em;
+      }
 
-a {
-  position: relative;
-}
+      a[href$='.gmi']::before {
+        content: 'TXT';
+        left: -2.6em;
+      }
 
-a::before {
-  content: 'FILE';
-  left: -3.2em;
-}
+      a[href$='.gif']::before {
+        content: 'GIF';
+        left: -2.6em;
+      }
 
-a[href$=".png"]::before,
-a[href$=".jpg"]::before {
-  content: 'IMG';
-  left: -2.6em;
-}
+      a[href$='/']::before {
+        content: 'DIR';
+        left: -2.6em;
+      }
 
-a[href$=".gmi"]::before {
-  content: 'TXT';
-  left: -2.6em;
-}
+      a[href^='http']::before {
+        content: 'HTML';
+        left: -3.2em;
+      }
 
-a[href$=".gif"]::before {
-  content: 'GIF';
-  left: -2.6em;
-}
+      a::before {
+        position: absolute;
+        top: -2px;
+        color: var(--link-color);
+      }
 
-a[href$="/"]::before {
-  content: 'DIR';
-  left: -2.6em;
-}
+      details a::before {
+        content: unset !important;
+      }
 
-a[href^="http"]::before {
-  content: 'HTML';
-  left: -3.2em;
-}
+      ::selection {
+        color: #000;
+        background-color: rgba(239, 198, 138, 0.996);
+      }
 
-a::before {
-  position: absolute;
-  top: -2px;
-  color: var(--link-color);
-}
+      :link {
+        color: var(--link-color);
+      }
 
-details a::before {
-  content: unset !important;
-}
+      :visited {
+        color: var(--visited-color);
+      }
 
-::selection {
-  color: #000;
-  background-color: rgba(239, 198, 138, 0.996);
-}
+      :link:hover,
+      :visited:hover {
+        color: #fff;
+      }
 
-:link {
-  color: var(--link-color);
-}
+      img {
+        display: inline-block;
+        vertical-align: top;
+        max-width: 8em;
+        margin: 0.1em 0;
+      }
 
-:visited {
-  color: var(--visited-color);
-}
+      img::selection {
+        background-color: rgba(239, 198, 138, 0.35);
+      }
 
-:link:hover,
-:visited:hover {
-  color: #fff;
-}
-
-img {
-  display: inline-block;
-  vertical-align: top;
-  max-width: 8em;
-  margin: .1em 0;
-}
-
-img::selection {
-  background-color: rgba(239, 198, 138, 0.35);
-}
-
-strong {
-  font-weight: normal;
-}
-  </style>
-</head>
-<body>
-  <main>
-{{{bodyContent}}}
-  </main>
-  <details>
-    <summary>Content from <a href="{{url}}">{{url}}</a></summary>
-    <p><a target="_blank" href="https://gemini.circumlunar.space/">More info</a> about Gemini protocol</p>
-  </details>
-</body>
+      strong {
+        font-weight: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <main>{{{bodyContent}}}</main>
+    <details>
+      <summary>Content from <a href="{{url}}">{{url}}</a></summary>
+      <p><a target="_blank" href="https://gemini.circumlunar.space/">More info</a> about Gemini protocol</p>
+    </details>
+  </body>
 </html>

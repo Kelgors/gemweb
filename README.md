@@ -2,23 +2,24 @@
 
 HTTP server that serves and transpile gemini files to html made in nodejs.
 
-The file server works, the proxy server works with some servers.
+If you give CONTENT_PATH variable, it will serve files this directory.
+If you don't give CONTENT_PATH, it will serve content from GEMINI_ROOT_URL.
 
 ## Install
 
 ```
 # install dependencies
-npm ci
+yarn
 # launch file server
-PORT=8080 GEMINI_ROOT_URL=gemini://kelgors.me ROOT=absolute/path/to/your/gemini/directory HTML_TEMPLATE=absolute/path/to/template.html LANG=en npm start
+GEMINI_ROOT_URL=gemini://kelgors.me CONTENT_PATH=path/to/your/gemini/directory HTML_TEMPLATE=path/to/template.html CONTENT_LANG=en yarn start
 # launch proxy server
-PORT=8080 GEMINI_ROOT_URL=gemini://kelgors.me HTML_TEMPLATE=./example/template.html LANG=en npm start
+GEMINI_ROOT_URL=gemini://kelgors.me HTML_TEMPLATE=./example/template.html yarn start
 ```
 
 ## Environment Variables
 
-* PORT: port used by the http server (default: 3000)
-* ROOT: Path of Gemini files (required for file server)
-* HTML_TEMPLATE: Path to .html file used for templating (mandatory)
-* LANG: html language code (default: en)
-* GEMINI_ROOT_URL: The url of your gemini capsule
+- PORT: port used by the http server (default: 3000)
+- HTML_TEMPLATE: Path to .html file used for templating (mandatory)
+- CONTENT_PATH: Path of Gemini files (required for file serving)
+- GEMINI_ROOT_URL: The url of your gemini capsule (required for gemini proxying)
+- CONTENT_LANG: html language code (default: "en" or use language given by gemini server)
