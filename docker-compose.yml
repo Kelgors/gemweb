@@ -1,13 +1,13 @@
 version: '3'
 services:
   www:
-    image: gemini-html-server:nightly-alpine
+    image: gemweb:1.0.0
     restart: unless-stopped
     ports:
-      - '8080:8080/tcp'
+      - '8080:80/tcp'
     volumes:
-      - ./example/content:/data/content:ro
+      # - ./example/content:/data/content:ro # needed for deliver .gmi files
       - ./example/template.html:/usr/local/template.html:ro
     environment:
-      # - CONTENT_PATH=/data/content
+      # - CONTENT_PATH=/data/content # needed for deliver .gmi files
       - GEMINI_ROOT_URL=gemini://kelgors.me

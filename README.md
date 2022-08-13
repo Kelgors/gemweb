@@ -1,4 +1,4 @@
-# Gemini HTML Server
+# Gemweb
 
 HTTP server that serves and transpile gemini files to html made in nodejs.
 
@@ -18,7 +18,7 @@ GEMINI_ROOT_URL=gemini://kelgors.me HTML_TEMPLATE=./example/template.html yarn s
 
 ## Environment Variables
 
-- PORT: port used by the http server (default: 3000)
+- PORT: port used by the http server (default: 3000, 80 for Docker)
 - HTML_TEMPLATE: Path to .html file used for templating (mandatory)
 - CONTENT_PATH: Path of Gemini files (required for file serving)
 - GEMINI_ROOT_URL: The url of your gemini capsule (required for gemini proxying)
