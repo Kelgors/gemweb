@@ -5,6 +5,6 @@ ENV HTML_TEMPLATE=/usr/local/template.html
 EXPOSE 80
 WORKDIR /app
 COPY . .
-RUN yarn --non-interactive --no-progress --silent
+RUN yarn --no-progress --silent --frozen-lockfile
 
 CMD ["yarn", "start"]
