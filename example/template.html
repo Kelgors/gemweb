@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="{{lang}}">
+<html lang="{{ lang }}">
   <head>
-    <title>{{title}}</title>
+    <title>{{ title }}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="put_author_name_here" />
-    <meta name="title" content="{{title}}" />
+    <meta name="title" content="{{ title }}" />
     <link rel="icon" type="image/x-icon" href="/pp2022.png" />
     <style>
       body {
@@ -16,7 +16,7 @@
         --link-color: #7877da;
         --visited-color: #54548f;
         margin: 0;
-        padding: 0;
+        padding: 0 0 50px;
         background-color: #14171a;
         color: #cad1d8;
         font-family: monospace;
@@ -67,6 +67,16 @@
         }
       }
 
+      p,
+      h1,
+      h2,
+      h3,
+      ul,
+      ol {
+        margin: 0;
+        padding: 0;
+      }
+
       blockquote {
         position: relative;
         margin: 1em 0;
@@ -87,6 +97,9 @@
         font-family: 'Iosevka Term SS03', 'IBM Plex Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Droid Sans Mono',
           Monaco, Consolas, Courier, monospace;
         white-space: pre-wrap;
+        font-size: 1rem;
+        border: 1px solid white;
+        padding: 1rem;
       }
 
       h1,
@@ -134,20 +147,8 @@
         color: var(--h3-color);
       }
 
-      p,
-      h1,
-      h2,
-      h3,
       ul,
       ol {
-        margin: 0;
-        padding: 0;
-      }
-
-      ul,
-      ol {
-        margin: 0;
-        padding: 0;
         list-style-type: none;
         white-space: nowrap;
       }
@@ -243,9 +244,9 @@
     </style>
   </head>
   <body>
-    <main>{{{bodyContent}}}</main>
+    <main>{{{ bodyContent }}}</main>
     <details>
-      <summary>Content from <a href="{{url}}">{{url}}</a></summary>
+      <summary>Content from <a href="{{ url }}">{{ url }}</a></summary>
       <p><a target="_blank" href="https://gemini.circumlunar.space/">More info</a> about Gemini protocol</p>
     </details>
   </body>
