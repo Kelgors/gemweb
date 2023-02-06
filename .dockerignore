@@ -1,5 +1,7 @@
 .*
+!.yarnrc.yml
+!.yarn
 node_modules
 example
-docker-compose.yml
 Dockerfile
+docker-compose.yml
