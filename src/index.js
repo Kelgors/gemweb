@@ -12,3 +12,8 @@ const server = http.createServer(handler);
 server.listen(PORT, function () {
   console.info('Server started on port %s', PORT);
 });
+
+process.on('SIGTERM', function () {
+  server.close();
+  process.exit(0);
+});
