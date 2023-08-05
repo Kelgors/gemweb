@@ -1,6 +1,6 @@
 {
   "name": "gemweb",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Transform gmi files or gemini capsule to HTML and serve them over HTTP",
   "main": "src/index.js",
   "type": "module",
