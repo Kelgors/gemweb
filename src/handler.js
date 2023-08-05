@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
-import triggerError from './triggerError.js';
 import resolveFile from './resolvers/file.js';
 import resolveRemote from './resolvers/gemini.js';
+import triggerError from './triggerError.js';
 import { transformGeminiStringToHtml } from './views/gemini-html.js';
 
 const resolve = !!process.env.GEMINI_ROOT_URL && !process.env.CONTENT_PATH ? resolveRemote : resolveFile;
@@ -10,6 +10,14 @@ export default async function handler(req, res) {
   console.info('%s %s', req.method, req.url);
   try {
     const geminiResponse = await resolve(req.url);
+
+    if (geminiResponse && geminiResponse.type === 'redirect') {
+      res.writeHead(302, 'Moved Temporarily', {
+        Location: geminiResponse.redirectUrl
+      });
+      res.end();
+      return;
+    }
 
     if (!geminiResponse || !geminiResponse.body) {
       triggerError(res, 404, 'Not Found');

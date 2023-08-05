@@ -1,6 +1,6 @@
+import mime from 'mime';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import mime from 'mime';
 
 mime.define({ 'text/gemini': ['gmi', 'gemini'] });
 
@@ -20,6 +20,14 @@ export default async function resolveFile(url) {
     return null;
   }
   if (stat.isDirectory()) {
+    if (!url.endsWith('/')) {
+      return {
+        type: 'redirect',
+        url,
+        redirectUrl: url + '/',
+        lang: process.env.CONTENT_LANG || 'en'
+      };
+    }
     try {
       // check with index.gmi
       filepath = path.join(filepath, 'index.gmi');
@@ -33,6 +41,7 @@ export default async function resolveFile(url) {
   }
 
   return {
+    type: 'file',
     url,
     body: await fs.readFile(filepath),
     contentType: mime.getType(filepath) || 'text/plain',
