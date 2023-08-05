@@ -65,7 +65,17 @@ export default async function resolveFile(url) {
   const contentType = response.statusMessage.split(';')[0];
   const lang = /;lang=(.*)/.exec(response.statusMessage) || [];
 
+  if (response.statusCode === '31') {
+    return {
+      type: 'redirect',
+      url,
+      redirectUrl: contentType.replace(process.env.GEMINI_ROOT_URL, ''),
+      lang: process.env.CONTENT_LANG || lang[1] || 'en'
+    };
+  }
+
   return {
+    type: 'file',
     url,
     body: response.body,
     contentType,
