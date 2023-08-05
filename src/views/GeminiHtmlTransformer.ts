@@ -1,16 +1,23 @@
 import { fromGemtext } from 'dioscuri';
+import { Root } from 'dioscuri/lib/from-gemtext.js';
+import { Heading } from 'dioscuri/lib/gast.js';
 import mustache from 'mustache';
 import slug from 'slug';
+import { OkRequestResolution } from '../resolvers/RequestResolution.js';
+import { GEMINI_HTML_MAP } from './GeminiHtmlMap.js';
 import pageTemplate from './page-template.js';
-import HTML_MAPPER from './html-mapper.json' assert { type: 'json' };
 
-for (let key in HTML_MAPPER) {
-  mustache.parse(HTML_MAPPER[key]);
+for (const key in GEMINI_HTML_MAP) {
+  mustache.parse(GEMINI_HTML_MAP[key]);
 }
 
-export function transformGeminiStringToHtml(geminiResponse) {
+export function transformGeminiStringToHtml(
+  geminiResponse: OkRequestResolution,
+) {
   const tree = fromGemtext(geminiResponse.body);
-  const titleToken = (tree.children || []).find(({ type, rank }) => type === 'heading' && rank === 1);
+  const titleToken = (tree.children || []).find(
+    (token): token is Heading => token.type === 'heading' && token.rank === 1,
+  );
   const title = !!titleToken ? titleToken.value : '';
 
   return Buffer.from(
@@ -18,15 +25,15 @@ export function transformGeminiStringToHtml(geminiResponse) {
       lang: geminiResponse.lang,
       title,
       bodyContent: transformGeminiTreeToHtml(tree),
-      url: (process.env.GEMINI_ROOT_URL || '') + geminiResponse.url
-    })
+      url: (process.env.GEMINI_ROOT_URL || '') + geminiResponse.url,
+    }),
   );
 }
 
-export function transformGeminiTreeToHtml(tree) {
+export function transformGeminiTreeToHtml(tree: Root) {
   return (tree.children || [])
     .map((item) => {
-      const line = { ...item };
+      const line = { ...item, slug: '' };
       switch (line.type) {
         case 'heading':
           if (line.rank) line.slug = slug(line.value);
@@ -35,7 +42,7 @@ export function transformGeminiTreeToHtml(tree) {
           if (line.alt) line.type += ':alt';
           break;
         case 'link':
-          if (line.url.startsWith('http')) line.type += ':http';
+          if (line.url?.startsWith('http')) line.type += ':http';
           else line.type += ':gemini';
           if (line.url && !line.value) {
             line.value = line.url;
@@ -43,7 +50,7 @@ export function transformGeminiTreeToHtml(tree) {
           break;
         default:
       }
-      const template = HTML_MAPPER[line.type];
+      const template = GEMINI_HTML_MAP[line.type];
       if (!template) return '';
       return mustache.render(template, line);
     })
